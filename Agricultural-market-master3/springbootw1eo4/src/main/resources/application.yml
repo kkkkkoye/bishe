@@ -13,7 +13,7 @@ spring:
       # 1. 检查端口：如果你安装 MySQL 时没改过端口，这里要把 3307 改回 3306
       url: jdbc:mysql://127.0.0.1:3306/springbootw1eo4?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
       username: ${DB_USERNAME:root}
-      password: ${DB_PASSWORD:}
+      password: ${DB_PASSWORD:123123123}
 
 #        driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
 #        url: jdbc:sqlserver://127.0.0.1:1433;DatabaseName=springbootw1eo4
