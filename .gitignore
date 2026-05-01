@@ -1,0 +1,29 @@
+.DS_Store
+._*
+
+# IDE/editor local state
+.idea/
+.vscode/
+*.iml
+
+# Java / Maven build output
+target/
+*.class
+
+# JavaScript dependencies and build output
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+
+# OS thumbnails
+Thumbs.db
+
+# WeChat DevTools local private config
+project.private.config.json
+**/project.private.config.json

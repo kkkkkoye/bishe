@@ -1,0 +1,85 @@
+<view class="content">
+	<form>
+		<!-- 1. 地址选择部分 -->
+		<block wx:if="{{seat!=1}}">
+			<view data-event-opts="{{[['tap',[['onAddressTap',['$event']]]]]}}" class="cu-form-group" bindtap="__e" style="border-bottom: 1rpx solid #eee;">
+				<view class="title">收货地址</view>
+				<view style="text-align: right;">
+					<view style="font-weight: bold; font-size: 28rpx;">{{''+address.name+" "+address.phone+''}}</view>
+					<view style="color: #888; font-size: 24rpx;">{{''+address.address+''}}</view>
+				</view>
+			</view>
+		</block>
+
+		<!-- 2. 营销活动部分（团购） -->
+		<view class="cu-form-group" style="margin-top: 20rpx;">
+			<view class="title">营销活动</view>
+			<checkbox-group data-event-opts="{{[['change',[['onGroupChange',['$event']]]]]}}" bindchange="__e" style="flex:1; display: flex; justify-content: flex-end;">
+				<label>
+					<checkbox class="orange" value="1001" checked="{{groupId==1001}}"></checkbox>
+					<text style="margin-left:10rpx; font-size: 26rpx; color: #ff5500;">参加团购 (满10人7折)</text>
+				</label>
+			</checkbox-group>
+		</view>
+
+		<!-- 3. 购买清单 -->
+		<view class="cu-form-group" style="margin-top: 20rpx; border-bottom: 1rpx solid #eee;">
+			<view class="title" style="font-weight:bold;">购买清单</view>
+		</view>
+		<block wx:for="{{orderGoods}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+			<view class="cu-form-group" style="padding: 20rpx 30rpx;">
+				<image class="avator" src="{{baseUrl+item.picture}}" style="width: 120rpx; height: 120rpx; border-radius: 10rpx;"></image>
+				<view class="title" style="flex: 1; margin-left: 20rpx;">
+					<view style="font-size: 28rpx; color: #333;">{{item.goodname}}</view>
+					<view style="margin-top: 10rpx; display: flex; align-items: center;">
+						<text style="font-size: 24rpx; color: #999;">{{'x'+item.buynumber+''}}</text>
+						
+						<!-- 价格显示 -->
+						<text style="margin-left:30rpx; color:red; font-weight: bold;">{{type==2?item.price+'积分':'￥'+item.price}}</text>
+						
+						<!-- 【营销亮点：限时降价标签】 -->
+						<block wx:if="{{item.reducediscount < 1}}">
+							<text style="margin-left:15rpx; background: linear-gradient(45deg, #ff9000, #ff5500); color: #fff; font-size: 20rpx; padding: 4rpx 12rpx; border-radius: 20rpx; line-height: 1;">限时{{item.reducediscount*10}}折</text>
+						</block>
+					</view>
+				</view>
+			</view>
+		</block>
+
+		<!-- 4. 支付方式选择 -->
+		<view class="cu-form-group" style="margin-top: 20rpx;">
+			<view class="title">支付方式</view>
+			<radio-group class="flex" style="flex:1; justify-content: space-around;" data-event-opts="{{[['change',[['onPayTypeChange',['$event']]]]]}}" bindchange="__e">
+				<label style="display: flex; align-items: center;">
+					<radio class="blue" value="现金支付" checked="{{paytype=='现金支付'}}"></radio>
+					<text style="margin-left:10rpx; font-size: 28rpx;">现金支付</text>
+				</label>
+				<label style="display: flex; align-items: center;">
+					<radio class="red" value="积分支付" checked="{{paytype=='积分支付'}}"></radio>
+					<text style="margin-left:10rpx; font-size: 28rpx;">积分支付</text>
+				</label>
+			</radio-group>
+		</view>
+
+		<!-- 5. 费用总计 -->
+		<view class="cu-form-group" style="margin-top: 2rpx;">
+			<view class="title">{{type==2?'总积分':'总计金额'}}</view>
+			<view>
+				<text style="color:red; font-weight:bold; font-size:36rpx;">{{type==2?total+'积分':'￥'+total}}</text>
+			</view>
+		</view>
+
+		<!-- 6. 备注 -->
+		<view class="cu-form-group">
+			<view class="title">备注</view>
+			<input style="flex: 1; margin-left:30rpx; border-bottom: 1px solid #eee; height:60rpx; font-size:28rpx;" placeholder="请填写备注信息" name="remark" data-event-opts="{{[['input',[['__set_model',['','remark','$event',[]]]]]]}}" value="{{remark}}" bindinput="__e" />
+		</view>
+	</form>
+
+	<!-- 7. 提交按钮 -->
+	<view class="padding" style="text-align:center; margin-top: 40rpx; padding-bottom: 60rpx;">
+		<button data-event-opts="{{[['tap',[['onSubmitTap']]]]}}" class="bg-red lg" style="width: 85%; border-radius: 50rpx; font-weight: bold; box-shadow: 0 10rpx 20rpx rgba(255,0,0,0.2);" bindtap="__e">
+			{{type==2?'确认兑换商品':'立即提交订单'}}
+		</button>
+	</view>
+</view>
